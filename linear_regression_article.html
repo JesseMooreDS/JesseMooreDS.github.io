@@ -3,165 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about Linear Regression, one of the most fundamental techniques in data science, and how to apply it using Python.">
-    <meta name="keywords" content="data science, linear regression, Python, machine learning, statistics, modeling">
-    <meta name="author" content="Jesse Moore">
-    <title>Understanding Linear Regression | Jesse Moore Data Science</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #f1f1f1;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6em;
-        }
-        h1 {
-            font-size: 3em;
-            color: #ff5733;
-            text-align: center;
-        }
-        h2 {
-            color: #ff7f50;
-            font-size: 2.5em;
-        }
-        h3 {
-            color: #80deea;
-            font-size: 2em;
-        }
-        p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 20px auto;
-            text-align: justify;
-        }
-        pre {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            overflow-x: auto;
-        }
-        code {
-            color: #ff8c00;
-            font-size: 1.1em;
-        }
-        a {
-            color: #00bcd4;
-            font-size: 1.2em;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .cta {
-            margin-top: 50px;
-            font-size: 1.5em;
-            text-align: center;
-            color: #ff5733;
-        }
-        .note {
-            background-color: #ffecb3;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-    </style>
+    <meta name="description" content="A guide to understanding linear regression, its assumptions, and the LINE test.">
+    <title>Linear Regression and the LINE Test: Understanding Assumptions for Valid Models</title>
 </head>
 <body>
+    <article>
+        <header>
+            <h1>Linear Regression and the LINE Test: Understanding Assumptions for Valid Models</h1>
+        </header>
 
-    <h1>Understanding Linear Regression</h1>
+        <section>
+            <p>Linear regression is a widely used statistical technique for analyzing relationships between variables. In simple linear regression, we model the relationship between a dependent variable (Y) and an independent variable (X) using a straight line. The basic idea is that as the independent variable changes, the dependent variable is expected to change in a predictable way.</p>
 
-    <h2>What is Linear Regression?</h2>
-    <p>Linear regression is a fundamental technique in statistics and data science. It helps us model the relationship between two variables by fitting a straight line to the data. In simple terms, linear regression allows us to predict the value of one variable (the dependent variable, <code>y</code>) based on the value of another variable (the independent variable, <code>X</code>).</p>
+            <p>The linear relationship can be expressed mathematically as:</p>
+            <pre><code>y = mx + c</code></pre>
 
-    <h3>Why is it important?</h3>
-    <p>Linear regression is widely used in many areas, including economics, biology, and social sciences. It's one of the most basic and easy-to-understand machine learning algorithms. By mastering linear regression, you'll build a strong foundation for understanding more complex models!</p>
+            <p>Where:</p>
+            <ul>
+                <li><strong>y</strong> is the dependent variable,</li>
+                <li><strong>x</strong> is the independent variable,</li>
+                <li><strong>m</strong> is the slope of the line,</li>
+                <li><strong>c</strong> is the y-intercept.</li>
+            </ul>
 
-    <h2>Let's Build a Linear Regression Model in Python</h2>
-    <p>We'll use Python and the <code>Statsmodels</code> library to implement linear regression. In this example, we'll look at how marketing spend impacts widget sales, with a simple linear regression model.</p>
+            <p>The line produced by the regression is called the <strong>best-fit line</strong>, which minimizes the sum of squared differences (residuals) between the actual data points and the predicted values.</p>
 
-    <h3>Step 1: Import Libraries</h3>
-    <p>Before we start, we need to import some important libraries in Python. These libraries will help us generate data, create plots, and perform statistical analysis.</p>
-    
-    <pre><code>import numpy as np
+            <p>Linear regression is a powerful tool and is used in a variety of fields, including sales forecasting, demand estimation, and evaluating the impact of factors like marketing expenditure. However, for linear regression to produce reliable results, the model must meet certain assumptions. In this post, we'll explore the assumptions of linear regression and explain the <strong>LINE test</strong> that helps validate them.</p>
+        </section>
+
+        <section>
+            <h2>The LINE Test: What It Means and Why It’s Important</h2>
+            <p>The <strong>LINE test</strong> is a mnemonic to remember the four key assumptions necessary for valid linear regression models:</p>
+            <ul>
+                <li><strong>L – Linearity:</strong> The relationship between the independent and dependent variables must be linear.</li>
+                <li><strong>I – Independence:</strong> The residuals (the differences between observed and predicted values) should be independent of each other.</li>
+                <li><strong>N – Normality:</strong> The residuals should follow a normal distribution.</li>
+                <li><strong>E – Equal Variance:</strong> The residuals should have constant variance across all values of the independent variable (homoscedasticity).</li>
+            </ul>
+            <p>If any of these assumptions are violated, the regression model’s results may be misleading or invalid. Therefore, it's essential to verify that these assumptions hold before drawing conclusions from your analysis.</p>
+        </section>
+
+        <section>
+            <h2>Example: Analyzing the Effect of Marketing Budget on Sales</h2>
+            <p>Let’s consider a real-world scenario where we analyze how the marketing budget affects sales. We have data on the marketing budget (our independent variable <strong>X</strong>) and the number of widgets sold (our dependent variable <strong>y</strong>).</p>
+
+            <h3>Step 1: Import Libraries and Create Data</h3>
+            <p>First, we'll import the necessary libraries and generate synthetic data for this analysis.</p>
+
+            <pre><code>
+import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
-import statsmodels.api as sm</code></pre>
+import statsmodels.api as sm
+from statsmodels.stats.stattools import durbin_watson
+from matplotlib.pyplot import style
 
-    <p><strong>Explanation:</strong> Here we're using <code>numpy</code> for generating data, <code>matplotlib</code> and <code>seaborn</code> for plotting, and <code>statsmodels</code> to build the regression model and perform statistical analysis.</p>
+style.use('dark_background')
 
-    <h3>Step 2: Create Sample Data</h3>
-    <p>For this example, let's generate some data where the number of widgets sold (<code>y</code>) depends on the marketing budget (<code>X</code>) in a linear way.</p>
+# Create sample data
+X = np.linspace(0, 300, 100)  # Independent variable: Marketing budget
+y = (X * 2) + np.random.normal(0, 20, size=X.shape)  # Dependent variable: Widgets sold with noise
+            </code></pre>
 
-    <pre><code># Create sample data for marketing budget (X) and widgets sold (y)
-X = np.linspace(0, 300, 100)  # Marketing budget: 100 data points from 0 to 300
-y = (X * 2) + np.random.normal(0, 20, size=X.shape)  # Widgets sold: Linear relation with noise added</code></pre>
+            <h3>Step 2: Visualize the Data</h3>
+            <p>Before fitting the model, we’ll visualize the data to check for a linear trend.</p>
 
-    <p><strong>Explanation:</strong> We're generating data for a marketing budget <code>X</code> ranging from 0 to 300. The number of widgets sold <code>y</code> is roughly twice the marketing budget plus some random noise (to make it more realistic).</p>
-
-    <h3>Step 3: Visualize the Data</h3>
-    <p>Let's take a look at our data by plotting it. We'll create a scatter plot to visualize the relationship between the marketing budget and widgets sold.</p>
-
-    <pre><code># Scatter plot to visualize the data
-plt.scatter(X, y, color='#80deea', edgecolor='black', alpha=0.7)
+            <pre><code>
+# Scatter plot of data
+plt.scatter(X, y)
 plt.xlabel('Marketing Budget')
 plt.ylabel('Widgets Sold')
-plt.title('Marketing Budget vs. Widgets Sold')
-plt.grid(True, color='white', linestyle='-', linewidth=0.5)
-plt.show()</code></pre>
+plt.show()
+            </code></pre>
 
-    <p><strong>Explanation:</strong> This plot shows the marketing budget on the x-axis and widgets sold on the y-axis. Notice that the data points roughly follow an upward trend, indicating a positive correlation.</p>
+            <p>From the scatter plot, we observe an upward trend, suggesting that a linear regression model might be appropriate.</p>
 
-    <h3>Step 4: Create and Fit the Regression Model</h3>
-    <p>Now, we’ll create a linear regression model and fit it to our data. This will help us understand the relationship between <code>X</code> (marketing budget) and <code>y</code> (widgets sold).</p>
+            <h3>Step 3: Fit the Linear Regression Model</h3>
+            <p>Now we will use the <code>Statsmodels</code> library to fit a linear regression model to the data.</p>
 
-    <pre><code># Add a constant to the independent variable (X) to include the intercept term
-X_const = sm.add_constant(X)
+            <pre><code>
+# Add constant to the independent variable (for the intercept term)
+X = sm.add_constant(X)
 
-# Fit the model using Ordinary Least Squares (OLS)
-model = sm.OLS(y, X_const)
+# Create and fit the OLS (Ordinary Least Squares) model
+model = sm.OLS(y, X)
 results = model.fit()
 
-# Print out the results summary
-print(results.summary())</code></pre>
+# Print model results
+print(f'F-statistic: {results.fvalue}, F p-value: {results.f_pvalue}')
+            </code></pre>
 
-    <p><strong>Explanation:</strong> We add a constant term to <code>X</code> because the linear regression model includes an intercept. Then, we fit the model using <code>OLS</code> (Ordinary Least Squares) and print out a summary of the results, which shows important statistics like the R-squared value, p-values, and coefficients.</p>
+            <h3>Step 4: Analyze the Model</h3>
+            <p>The <strong>F-statistic</strong> and <strong>p-value</strong> tell us whether the model is statistically significant. A p-value less than 0.05 suggests that the model is significant.</p>
 
-    <h3>Step 5: Visualize the Regression Line</h3>
-    <p>Once we have the model, we can plot the regression line to see how well it fits the data.</p>
+            <pre><code>
+# Check if the model is statistically significant
+if results.f_pvalue < 0.05:
+    print(f'Model is statistically significant with p-value: {results.f_pvalue}')
+else:
+    print(f'Model is not statistically significant with p-value: {results.f_pvalue}')
+            </code></pre>
 
-    <pre><code># Plot the regression line
-plt.scatter(X, y, color='#80deea', edgecolor='black', alpha=0.7)
-sm.graphics.abline_plot(model_results=results, color='red')
-plt.xlabel('Marketing Budget')
-plt.ylabel('Widgets Sold')
-plt.title('Regression Line for Marketing Budget vs. Widgets Sold')
-plt.grid(True, color='white', linestyle='-', linewidth=0.5)
-plt.show()</code></pre>
+            <h3>Step 5: Visualizing the Best-Fit Line</h3>
+            <p>Next, we can plot the best-fit line from our model.</p>
 
-    <p><strong>Explanation:</strong> This plot shows the regression line in red. The line best fits the data, minimizing the distance between itself and the data points.</p>
+            <pre><code>
+# Plot the scatter plot and regression line
+fig, ax = plt.subplots()
+ax.scatter(X[:, 1], y, label='Widgets Sold')  # X[:, 1] excludes the constant added earlier
+sm.graphics.abline_plot(model_results=results, color='red', label='Regression Line', ax=ax)
+ax.legend()
+plt.show()
+            </code></pre>
+        </section>
 
-    <h2>Assumptions in Linear Regression: The LINE Test</h2>
-    <p>For linear regression to produce reliable results, we must check certain assumptions, often called the **LINE** assumptions. These are:</p>
-    <ul>
-        <li><strong>L: Linearity</strong> - The relationship between the independent and dependent variable is linear.</li>
-        <li><strong>I: Independence</strong> - The residuals (errors) of the model are independent of each other.</li>
-        <li><strong>N: Normality</strong> - The residuals are normally distributed.</li>
-        <li><strong>E: Equal Variance (Homoscedasticity)</strong> - The variance of the residuals is constant across all levels of the independent variable.</li>
-    </ul>
+        <section>
+            <h2>The LINE Test: Verifying Model Assumptions</h2>
+            <h3>1. Linearity</h3>
+            <p>We’ve already visually inspected the data and observed a linear trend. To further confirm this, we'll plot the residuals (the differences between observed and predicted values). If the residuals show no pattern, we can conclude that the linearity assumption holds.</p>
 
-    <p>We’ll check these assumptions later by looking at residual plots and performing statistical tests.</p>
+            <pre><code>
+# Plot residuals
+plt.scatter(results.fittedvalues, results.resid, alpha=0.6, label='Residuals')
+plt.axhline(y=0, color='red', alpha=0.6, label='0 line')
+plt.xlabel('Fitted Values')
+plt.ylabel('Residuals')
+plt.legend()
+plt.show()
+            </code></pre>
 
-    <h2>Conclusion</h2>
-    <p>In this article, we’ve learned how to apply linear regression to predict outcomes based on a single independent variable. We used Python's <code>Statsmodels</code> library to fit the model and interpret the results. By checking the LINE assumptions, we can ensure that our model is valid and reliable.</p>
+            <h3>2. Independence</h3>
+            <p>The residuals should not be correlated with each other. We can test this using the <strong>Durbin-Watson statistic</strong>, which measures autocorrelation in the residuals.</p>
 
-    <p>Linear regression is a powerful tool in data science, and mastering it is a great first step towards more advanced machine learning techniques!</p>
+            <pre><code>
+# Durbin-Watson test for independence
+dw_stat = durbin_watson(results.resid)
+print(f'Durbin-Watson statistic: {dw_stat}')
+            </code></pre>
 
-    <div class="cta">
-        <p>Stay tuned for more articles on data science, machine learning, and statistical analysis!</p>
-    </div>
+            <h3>3. Normality</h3>
+            <p>For the normality assumption, the residuals should follow a normal distribution. We can check this by plotting a histogram and a kernel density estimate (KDE) of the residuals.</p>
 
+            <pre><code>
+# Plot histogram and KDE of residuals
+plt.hist(results.resid, bins='auto', label='Residuals Distribution', alpha=0.5, density=True)
+sns.kdeplot(results.resid, color='red', label='KDE of Residuals', linestyle='--')
+plt.legend()
+plt.show()
+            </code></pre>
+
+            <h3>4. Equal Variance (Homoscedasticity)</h3>
+            <p>The residuals should have constant variance across all levels of the independent variable. To check this, we plot the residuals against the fitted values. If the spread of residuals remains roughly constant, the assumption is met.</p>
+
+            <pre><code>
+# Plot residuals vs fitted values
+plt.scatter(results.fittedvalues, results.resid)
+plt.axhline(y=0, color='blue', label='0-Line')
+plt.xlabel('Fitted Values')
+plt.ylabel('Residuals')
+plt.legend()
+plt.show()
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Conclusion</h2>
+            <p>In this post, we've covered the basics of linear regression and discussed the importance of verifying the assumptions of the model using the <strong>LINE test</strong>. By checking for <strong>Linearity</strong>, <strong>Independence</strong>, <strong>Normality</strong>, and <strong>Equal Variance</strong>, we ensure that our model produces reliable results. This methodology is not only useful for analyzing marketing effectiveness but can also be applied to a wide range of analytical problems.</p>
+
+            <p>Linear regression is a powerful tool for any data scientist’s toolkit, and ensuring the validity of its assumptions helps ensure the quality of your insights.</p>
+        </section>
+    </article>
 </body>
 </html>
