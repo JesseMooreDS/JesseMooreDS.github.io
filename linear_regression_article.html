@@ -5,14 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A guide to understanding linear regression, its assumptions, and the LINE test.">
     <title>Linear Regression and the LINE Test: Understanding Assumptions for Valid Models</title>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3 {
+            color: #FF5733; /* Orange color for headings */
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #FF5733;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p, li {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        pre, code {
+            background-color: #1e1e1e;
+            color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        blockquote {
+            border-left: 4px solid #FF5733;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #ddd;
+            font-style: italic;
+        }
+
+        section {
+            padding: 20px;
+            margin: 10px;
+        }
+
+        header {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        .content {
+            padding: 30px 0;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            margin-top: 30px;
+        }
+
+        .content pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            background-color: #000;
+            color: #999;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #FF5733;
+        }
+
+        .plot-image {
+            width: 100%;
+            max-width: 700px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .code-block {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            margin-top: 40px;
+        }
+
+        /* Responsiveness */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <article>
-        <header>
-            <h1>Linear Regression and the LINE Test: Understanding Assumptions for Valid Models</h1>
-        </header>
 
-        <section>
+    <header>
+        <div class="container">
+            <h1>Linear Regression and the LINE Test: Understanding Assumptions for Valid Models</h1>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="container">
             <p>Linear regression is a widely used statistical technique for analyzing relationships between variables. In simple linear regression, we model the relationship between a dependent variable (Y) and an independent variable (X) using a straight line. The basic idea is that as the independent variable changes, the dependent variable is expected to change in a predictable way.</p>
 
             <p>The linear relationship can be expressed mathematically as:</p>
@@ -29,9 +153,11 @@
             <p>The line produced by the regression is called the <strong>best-fit line</strong>, which minimizes the sum of squared differences (residuals) between the actual data points and the predicted values.</p>
 
             <p>Linear regression is a powerful tool and is used in a variety of fields, including sales forecasting, demand estimation, and evaluating the impact of factors like marketing expenditure. However, for linear regression to produce reliable results, the model must meet certain assumptions. In this post, we'll explore the assumptions of linear regression and explain the <strong>LINE test</strong> that helps validate them.</p>
-        </section>
+        </div>
+    </section>
 
-        <section>
+    <section class="content">
+        <div class="container">
             <h2>The LINE Test: What It Means and Why It’s Important</h2>
             <p>The <strong>LINE test</strong> is a mnemonic to remember the four key assumptions necessary for valid linear regression models:</p>
             <ul>
@@ -41,9 +167,11 @@
                 <li><strong>E – Equal Variance:</strong> The residuals should have constant variance across all values of the independent variable (homoscedasticity).</li>
             </ul>
             <p>If any of these assumptions are violated, the regression model’s results may be misleading or invalid. Therefore, it's essential to verify that these assumptions hold before drawing conclusions from your analysis.</p>
-        </section>
+        </div>
+    </section>
 
-        <section>
+    <section class="content">
+        <div class="container">
             <h2>Example: Analyzing the Effect of Marketing Budget on Sales</h2>
             <p>Let’s consider a real-world scenario where we analyze how the marketing budget affects sales. We have data on the marketing budget (our independent variable <strong>X</strong>) and the number of widgets sold (our dependent variable <strong>y</strong>).</p>
 
@@ -79,6 +207,9 @@ plt.show()
 
             <p>From the scatter plot, we observe an upward trend, suggesting that a linear regression model might be appropriate.</p>
 
+            <!-- Plot Image -->
+            <img src="path_to_your_scatter_plot.png" alt="Scatter plot showing marketing budget vs widgets sold" class="plot-image">
+
             <h3>Step 3: Fit the Linear Regression Model</h3>
             <p>Now we will use the <code>Statsmodels</code> library to fit a linear regression model to the data.</p>
 
@@ -106,7 +237,7 @@ else:
             </code></pre>
 
             <h3>Step 5: Visualizing the Best-Fit Line</h3>
-            <p>Next, we can plot the best-fit line from our model.</p>
+            <p>Now that we have our regression model, let’s visualize the best-fit line along with the data.</p>
 
             <pre><code>
 # Plot the scatter plot and regression line
@@ -116,12 +247,16 @@ sm.graphics.abline_plot(model_results=results, color='red', label='Regression Li
 ax.legend()
 plt.show()
             </code></pre>
-        </section>
 
-        <section>
-            <h2>The LINE Test: Verifying Model Assumptions</h2>
-            <h3>1. Linearity</h3>
-            <p>We’ve already visually inspected the data and observed a linear trend. To further confirm this, we'll plot the residuals (the differences between observed and predicted values). If the residuals show no pattern, we can conclude that the linearity assumption holds.</p>
+            <img src="path_to_your_best_fit_line_plot.png" alt="Regression line plot" class="plot-image">
+
+            <h3>The LINE Test: Verifying Model Assumptions</h3>
+            <p>Now that we have our model, let's verify the assumptions using the LINE test.</p>
+
+            <!-- Assumptions Details -->
+
+            <h4 class="section-title">1. Linearity</h4>
+            <p>We can check for linearity by inspecting the residuals. If the residuals show no pattern, this indicates that the relationship is linear.</p>
 
             <pre><code>
 # Plot residuals
@@ -133,8 +268,10 @@ plt.legend()
 plt.show()
             </code></pre>
 
-            <h3>2. Independence</h3>
-            <p>The residuals should not be correlated with each other. We can test this using the <strong>Durbin-Watson statistic</strong>, which measures autocorrelation in the residuals.</p>
+            <img src="path_to_your_residuals_plot.png" alt="Residuals plot" class="plot-image">
+
+            <h4 class="section-title">2. Independence</h4>
+            <p>We can test independence of residuals using the <strong>Durbin-Watson statistic</strong>.</p>
 
             <pre><code>
 # Durbin-Watson test for independence
@@ -142,8 +279,8 @@ dw_stat = durbin_watson(results.resid)
 print(f'Durbin-Watson statistic: {dw_stat}')
             </code></pre>
 
-            <h3>3. Normality</h3>
-            <p>For the normality assumption, the residuals should follow a normal distribution. We can check this by plotting a histogram and a kernel density estimate (KDE) of the residuals.</p>
+            <h4 class="section-title">3. Normality</h4>
+            <p>To check the normality of the residuals, we can use a histogram and kernel density estimate (KDE).</p>
 
             <pre><code>
 # Plot histogram and KDE of residuals
@@ -153,8 +290,10 @@ plt.legend()
 plt.show()
             </code></pre>
 
-            <h3>4. Equal Variance (Homoscedasticity)</h3>
-            <p>The residuals should have constant variance across all levels of the independent variable. To check this, we plot the residuals against the fitted values. If the spread of residuals remains roughly constant, the assumption is met.</p>
+            <img src="path_to_your_normality_plot.png" alt="Normality plot" class="plot-image">
+
+            <h4 class="section-title">4. Equal Variance (Homoscedasticity)</h4>
+            <p>The residuals should have constant variance across the range of fitted values. Let’s plot the residuals versus the fitted values to check for this assumption.</p>
 
             <pre><code>
 # Plot residuals vs fitted values
@@ -165,14 +304,16 @@ plt.ylabel('Residuals')
 plt.legend()
 plt.show()
             </code></pre>
-        </section>
 
-        <section>
-            <h2>Conclusion</h2>
-            <p>In this post, we've covered the basics of linear regression and discussed the importance of verifying the assumptions of the model using the <strong>LINE test</strong>. By checking for <strong>Linearity</strong>, <strong>Independence</strong>, <strong>Normality</strong>, and <strong>Equal Variance</strong>, we ensure that our model produces reliable results. This methodology is not only useful for analyzing marketing effectiveness but can also be applied to a wide range of analytical problems.</p>
+            <img src="path_to_your_variance_plot.png" alt="Variance plot" class="plot-image">
 
-            <p>Linear regression is a powerful tool for any data scientist’s toolkit, and ensuring the validity of its assumptions helps ensure the quality of your insights.</p>
-        </section>
-    </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+
 </body>
 </html>
+
