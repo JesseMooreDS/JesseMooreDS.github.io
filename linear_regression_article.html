@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Linear Regression, one of the most fundamental techniques in data science, and how to apply it using Python.">
+    <meta name="keywords" content="data science, linear regression, Python, machine learning, statistics, modeling">
+    <meta name="author" content="Jesse Moore">
+    <title>Understanding Linear Regression | Jesse Moore Data Science</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6em;
+        }
+        h1 {
+            font-size: 3em;
+            color: #ff5733;
+            text-align: center;
+        }
+        h2 {
+            color: #ff7f50;
+            font-size: 2.5em;
+        }
+        h3 {
+            color: #80deea;
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: justify;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            overflow-x: auto;
+        }
+        code {
+            color: #ff8c00;
+            font-size: 1.1em;
+        }
+        a {
+            color: #00bcd4;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .cta {
+            margin-top: 50px;
+            font-size: 1.5em;
+            text-align: center;
+            color: #ff5733;
+        }
+        .note {
+            background-color: #ffecb3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Understanding Linear Regression</h1>
+
+    <h2>What is Linear Regression?</h2>
+    <p>Linear regression is a fundamental technique in statistics and data science. It helps us model the relationship between two variables by fitting a straight line to the data. In simple terms, linear regression allows us to predict the value of one variable (the dependent variable, <code>y</code>) based on the value of another variable (the independent variable, <code>X</code>).</p>
+
+    <h3>Why is it important?</h3>
+    <p>Linear regression is widely used in many areas, including economics, biology, and social sciences. It's one of the most basic and easy-to-understand machine learning algorithms. By mastering linear regression, you'll build a strong foundation for understanding more complex models!</p>
+
+    <h2>Let's Build a Linear Regression Model in Python</h2>
+    <p>We'll use Python and the <code>Statsmodels</code> library to implement linear regression. In this example, we'll look at how marketing spend impacts widget sales, with a simple linear regression model.</p>
+
+    <h3>Step 1: Import Libraries</h3>
+    <p>Before we start, we need to import some important libraries in Python. These libraries will help us generate data, create plots, and perform statistical analysis.</p>
+    
+    <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm</code></pre>
+
+    <p><strong>Explanation:</strong> Here we're using <code>numpy</code> for generating data, <code>matplotlib</code> and <code>seaborn</code> for plotting, and <code>statsmodels</code> to build the regression model and perform statistical analysis.</p>
+
+    <h3>Step 2: Create Sample Data</h3>
+    <p>For this example, let's generate some data where the number of widgets sold (<code>y</code>) depends on the marketing budget (<code>X</code>) in a linear way.</p>
+
+    <pre><code># Create sample data for marketing budget (X) and widgets sold (y)
+X = np.linspace(0, 300, 100)  # Marketing budget: 100 data points from 0 to 300
+y = (X * 2) + np.random.normal(0, 20, size=X.shape)  # Widgets sold: Linear relation with noise added</code></pre>
+
+    <p><strong>Explanation:</strong> We're generating data for a marketing budget <code>X</code> ranging from 0 to 300. The number of widgets sold <code>y</code> is roughly twice the marketing budget plus some random noise (to make it more realistic).</p>
+
+    <h3>Step 3: Visualize the Data</h3>
+    <p>Let's take a look at our data by plotting it. We'll create a scatter plot to visualize the relationship between the marketing budget and widgets sold.</p>
+
+    <pre><code># Scatter plot to visualize the data
+plt.scatter(X, y, color='#80deea', edgecolor='black', alpha=0.7)
+plt.xlabel('Marketing Budget')
+plt.ylabel('Widgets Sold')
+plt.title('Marketing Budget vs. Widgets Sold')
+plt.grid(True, color='white', linestyle='-', linewidth=0.5)
+plt.show()</code></pre>
+
+    <p><strong>Explanation:</strong> This plot shows the marketing budget on the x-axis and widgets sold on the y-axis. Notice that the data points roughly follow an upward trend, indicating a positive correlation.</p>
+
+    <h3>Step 4: Create and Fit the Regression Model</h3>
+    <p>Now, we’ll create a linear regression model and fit it to our data. This will help us understand the relationship between <code>X</code> (marketing budget) and <code>y</code> (widgets sold).</p>
+
+    <pre><code># Add a constant to the independent variable (X) to include the intercept term
+X_const = sm.add_constant(X)
+
+# Fit the model using Ordinary Least Squares (OLS)
+model = sm.OLS(y, X_const)
+results = model.fit()
+
+# Print out the results summary
+print(results.summary())</code></pre>
+
+    <p><strong>Explanation:</strong> We add a constant term to <code>X</code> because the linear regression model includes an intercept. Then, we fit the model using <code>OLS</code> (Ordinary Least Squares) and print out a summary of the results, which shows important statistics like the R-squared value, p-values, and coefficients.</p>
+
+    <h3>Step 5: Visualize the Regression Line</h3>
+    <p>Once we have the model, we can plot the regression line to see how well it fits the data.</p>
+
+    <pre><code># Plot the regression line
+plt.scatter(X, y, color='#80deea', edgecolor='black', alpha=0.7)
+sm.graphics.abline_plot(model_results=results, color='red')
+plt.xlabel('Marketing Budget')
+plt.ylabel('Widgets Sold')
+plt.title('Regression Line for Marketing Budget vs. Widgets Sold')
+plt.grid(True, color='white', linestyle='-', linewidth=0.5)
+plt.show()</code></pre>
+
+    <p><strong>Explanation:</strong> This plot shows the regression line in red. The line best fits the data, minimizing the distance between itself and the data points.</p>
+
+    <h2>Assumptions in Linear Regression: The LINE Test</h2>
+    <p>For linear regression to produce reliable results, we must check certain assumptions, often called the **LINE** assumptions. These are:</p>
+    <ul>
+        <li><strong>L: Linearity</strong> - The relationship between the independent and dependent variable is linear.</li>
+        <li><strong>I: Independence</strong> - The residuals (errors) of the model are independent of each other.</li>
+        <li><strong>N: Normality</strong> - The residuals are normally distributed.</li>
+        <li><strong>E: Equal Variance (Homoscedasticity)</strong> - The variance of the residuals is constant across all levels of the independent variable.</li>
+    </ul>
+
+    <p>We’ll check these assumptions later by looking at residual plots and performing statistical tests.</p>
+
+    <h2>Conclusion</h2>
+    <p>In this article, we’ve learned how to apply linear regression to predict outcomes based on a single independent variable. We used Python's <code>Statsmodels</code> library to fit the model and interpret the results. By checking the LINE assumptions, we can ensure that our model is valid and reliable.</p>
+
+    <p>Linear regression is a powerful tool in data science, and mastering it is a great first step towards more advanced machine learning techniques!</p>
+
+    <div class="cta">
+        <p>Stay tuned for more articles on data science, machine learning, and statistical analysis!</p>
+    </div>
+
+</body>
+</html>
